@@ -1,0 +1,666 @@
+<!-- ============================================================
+     FILE: posts/post-template.html
+     PURPOSE: Reusable blog post template for GitHub Pages
+              (Photo-first + Journal storytelling + Planning notes)
+              + Related Social/Video/Links section included
+     HOW TO USE:
+       1) Copy this file
+       2) Rename it like: posts/2026-03-01-just-go-weekend.html
+       3) Replace everything marked "EDIT HERE"
+       4) Add your images to /images/
+       5) Link to your new post from index.html
+   ============================================================ -->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- ============================================================
+       BASIC PAGE SETTINGS (required)
+       ============================================================ -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <!-- ============================================================
+       EDIT HERE: Browser tab title
+       Example: "Our Just-Go Weekend • Next Stop Somewhere Family"
+       ============================================================ -->
+  <title>POST TITLE • Next Stop Somewhere Family</title>
+
+  <!-- ============================================================
+       EDIT HERE: Short description (search engines + link previews)
+       Keep under ~160 characters.
+       ============================================================ -->
+  <meta name="description" content="One-sentence teaser for the post. Keep it under ~160 characters." />
+
+  <!-- ============================================================
+       SOCIAL SHARE PREVIEW (for this post)
+       These affect how the post looks when shared on social media.
+       ============================================================ -->
+  <!-- EDIT HERE: Title shown in share previews -->
+  <meta property="og:title" content="POST TITLE" />
+  <!-- EDIT HERE: Description shown in share previews -->
+  <meta property="og:description" content="One-sentence teaser for the post." />
+  <!-- Tells platforms this is an article/post -->
+  <meta property="og:type" content="article" />
+
+  <!-- ============================================================
+       EDIT HERE: Share image for this specific post
+       Put a 1200x630-ish image in /images/ and update this filename.
+       Example: ../images/2026-03-01-social.jpg
+       ============================================================ -->
+  <meta property="og:image" content="../images/POST-SHARE.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- ============================================================
+       STYLES (controls the look)
+       You can leave these alone at first.
+       ============================================================ -->
+  <style>
+    /* ---------- Theme variables (colors, sizes) ---------- */
+    :root{
+      --bg:#070a10;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.04);
+      --border: rgba(255,255,255,.10);
+      --text:#f3f4f6;
+      --muted:#b6bcc6;
+      --accent:#7dd3fc;
+      --accent2:#a7f3d0;
+      --shadow: 0 14px 35px rgba(0,0,0,.45);
+      --radius: 22px;
+      --max: 920px;
+    }
+
+    /* ---------- Basic reset ---------- */
+    *{ box-sizing:border-box; }
+
+    /* ---------- Page background and default text ---------- */
+    body{
+      margin:0;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(900px 500px at 20% 0%, rgba(125,211,252,.18), transparent 55%),
+        radial-gradient(700px 420px at 90% 10%, rgba(167,243,208,.14), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.7;
+    }
+
+    /* ---------- Link styling ---------- */
+    a{ color:inherit; text-decoration:none; }
+    a:hover{ color:var(--accent); }
+
+    /* ---------- Keeps content centered and readable ---------- */
+    .wrap{ max-width: var(--max); margin: 0 auto; padding: 18px 18px 36px; }
+
+    /* ============================================================
+       TOP BAR (sticky header)
+       ============================================================ */
+    .topbar{
+      position: sticky; top:0; z-index:10;
+      backdrop-filter: blur(12px);
+      background: rgba(7,10,16,.62);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-inner{
+      max-width: var(--max);
+      margin:0 auto;
+      padding: 14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    /* ---------- Brand (logo + site name) ---------- */
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight: 780;
+      letter-spacing:.2px;
+    }
+    .logo{
+      width:34px; height:34px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(125,211,252,.95), rgba(167,243,208,.85));
+      box-shadow: var(--shadow);
+    }
+
+    /* ---------- Nav buttons in the header ---------- */
+    .nav{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: .95rem;
+    }
+    .nav a{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.04);
+    }
+    .nav a:hover{ border-color: rgba(125,211,252,.35); color: var(--text); }
+
+    /* ============================================================
+       HERO IMAGE AREA (big photo at top)
+       ============================================================ */
+    .hero{
+      margin-top: 16px;
+      border-radius: var(--radius);
+      overflow:hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      background: rgba(255,255,255,.05);
+    }
+    .hero img{
+      width:100%;
+      height: clamp(260px, 42vh, 520px);
+      object-fit: cover;
+      display:block;
+      filter:saturate(1.05);
+    }
+
+    /* ============================================================
+       ARTICLE BOX (main content)
+       ============================================================ */
+    .article{
+      margin-top: 14px;
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    /* Title */
+    h1{
+      margin: 0 0 8px;
+      font-size: clamp(28px, 3.2vw, 42px);
+      line-height: 1.12;
+      letter-spacing:-.4px;
+    }
+
+    /* Meta row under title (date + tags) */
+    .meta{
+      color: var(--muted);
+      font-size: .98rem;
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      align-items:center;
+      margin-bottom: 12px;
+    }
+    .pill{
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.09);
+      color: var(--text);
+      font-weight: 650;
+      font-size: .9rem;
+    }
+
+    /* Short hook paragraph */
+    .lede{
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin: 0 0 14px;
+      max-width: 70ch;
+    }
+
+    /* Story text */
+    .story p{
+      margin: 0 0 14px;
+      color: rgba(243,244,246,.92);
+    }
+    .story h2{
+      margin: 22px 0 10px;
+      font-size: 1.35rem;
+      letter-spacing:-.2px;
+    }
+
+    /* Pull quote box */
+    .pull{
+      margin: 18px 0;
+      padding: 14px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(125,211,252,.25);
+      background: rgba(125,211,252,.08);
+      color: rgba(243,244,246,.92);
+      font-weight: 620;
+    }
+
+    /* ============================================================
+       IMAGE ROWS (two images side-by-side on desktop)
+       ============================================================ */
+    .img-row{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin: 16px 0 18px;
+    }
+    /* Mobile: stack images */
+    @media (max-width: 720px){ .img-row{ grid-template-columns: 1fr; } }
+    .img-row img{
+      width:100%;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      display:block;
+      height: 260px;
+      object-fit: cover;
+    }
+    .caption{
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    /* ============================================================
+       RELATED LINKS + SOCIAL / VIDEO SECTION (NEW)
+       ============================================================ */
+    .related{
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(125,211,252,.22);
+      background: rgba(125,211,252,.06);
+    }
+    .related h2{
+      margin:0 0 8px;
+      font-size: 1.25rem;
+    }
+    .related p{
+      margin:0 0 12px;
+      color: var(--muted);
+    }
+    .related-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 720px){
+      .related-grid{ grid-template-columns: 1fr; }
+    }
+    .link-card{
+      padding: 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      display:grid;
+      gap: 6px;
+    }
+    .link-card strong{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .link-card a{
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .link-card span{
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    /* Video embed box (YouTube works best) */
+    .embed{
+      margin-top: 10px;
+      border-radius: 18px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.25);
+    }
+    .embed iframe{
+      width: 100%;
+      height: 360px;
+      border: 0;
+      display:block;
+    }
+    @media (max-width: 720px){
+      .embed iframe{ height: 260px; }
+    }
+
+    /* ============================================================
+       PLANNING NOTES SECTION (help people plan)
+       ============================================================ */
+    .plan{
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(167,243,208,.22);
+      background: rgba(167,243,208,.08);
+    }
+    .plan h2{
+      margin:0 0 8px;
+      font-size: 1.25rem;
+    }
+    .plan-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (max-width: 720px){ .plan-grid{ grid-template-columns: 1fr; } }
+    .plan-item{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding: 12px;
+    }
+    .plan-item strong{ display:block; margin-bottom: 4px; }
+    .plan-item span{ color: var(--muted); }
+
+    /* ============================================================
+       SHARE + CTA (buttons at bottom)
+       ============================================================ */
+    .share{
+      margin-top: 18px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      color: var(--muted);
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      font-weight: 650;
+    }
+    .btn:hover{ border-color: rgba(125,211,252,.35); }
+
+    /* Footer notes */
+    footer{
+      margin-top: 18px;
+      padding-top: 16px;
+      color: var(--muted);
+      border-top: 1px solid rgba(255,255,255,.10);
+      font-size: .95rem;
+    }
+
+    /* Inline code (used in instructions) */
+    code{
+      color: rgba(243,244,246,.92);
+      background: rgba(255,255,255,.06);
+      padding: 2px 6px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ============================================================
+       HEADER BAR (stays at top while scrolling)
+       ============================================================ -->
+  <header class="topbar">
+    <div class="topbar-inner">
+
+      <!-- LEFT SIDE: Logo + link to homepage -->
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <a href="../index.html" aria-label="Go to homepage">Next Stop Somewhere Family</a>
+      </div>
+
+      <!-- RIGHT SIDE: Buttons (Back + Social links) -->
+      <div class="nav" aria-label="Post navigation">
+        <a href="../index.html#latest">← Back to posts</a>
+
+        <!-- EDIT HERE: Replace # with your social profile links -->
+        <a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="#" target="_blank" rel="noopener noreferrer">TikTok</a>
+        <a href="#" target="_blank" rel="noopener noreferrer">Pinterest</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- ============================================================
+         HERO IMAGE (big “magazine style” photo at top)
+         ============================================================ -->
+    <section class="hero" aria-label="Hero image">
+      <!-- EDIT HERE:
+           Put your main featured image in /images/ and update this filename.
+           Example: ../images/2026-03-01-featured.jpg -->
+      <img src="../images/featured.jpg" alt="Featured trip photo" />
+    </section>
+
+    <!-- ============================================================
+         MAIN BLOG POST CONTENT
+         ============================================================ -->
+    <article class="article" aria-label="Blog post">
+
+      <!-- EDIT HERE: Post title -->
+      <h1>POST TITLE GOES HERE</h1>
+
+      <!-- EDIT HERE: Date + tags (pills) -->
+      <div class="meta">
+        <span>Month Day, Year</span>
+        <span class="pill">Weekend Trip</span>
+        <span class="pill">Road Trip</span>
+        <span class="pill">story + tips</span>
+      </div>
+
+      <!-- EDIT HERE: Lede / hook (1–2 sentences) -->
+      <p class="lede">
+        One-sentence hook that matches your social caption—photo-first vibe, journal tone, and a promise of planning notes.
+      </p>
+
+      <!-- ============================================================
+           STORY SECTION (journal writing + photos)
+           TIP: Keep paragraphs short for phone readers.
+           ============================================================ -->
+      <section class="story" aria-label="Story content">
+
+        <!-- EDIT HERE: Journal intro paragraphs -->
+        <p>
+          Start with the real moment. What did it feel like? What were you thinking in the car? What was the “why” behind going?
+        </p>
+
+        <p>
+          Add a small conflict or surprise: weather changed, kids got cranky, you nearly skipped it—then something made it worth it.
+        </p>
+
+        <!-- EDIT HERE: Pull quote (optional, very shareable) -->
+        <div class="pull">
+          A memorable line from the trip — something quotable for Instagram captions.
+        </div>
+
+        <!-- Section heading -->
+        <h2>The moments we’ll remember</h2>
+
+        <p>
+          Describe what’s in the next set of photos. Keep it simple. Let the images carry the emotion, and use your words for meaning.
+        </p>
+
+        <!-- ============================================================
+             PHOTO ROW (two photos)
+             ============================================================ -->
+        <div class="img-row" aria-label="Photo row">
+          <!-- PHOTO #1 -->
+          <div>
+            <!-- EDIT HERE: Image file -->
+            <img src="../images/photo-1.jpg" alt="Trip photo 1" />
+            <!-- EDIT HERE: Caption -->
+            <div class="caption">Caption: a short sentence that adds context or emotion.</div>
+          </div>
+
+          <!-- PHOTO #2 -->
+          <div>
+            <img src="../images/photo-2.jpg" alt="Trip photo 2" />
+            <div class="caption">Caption: what made this moment special?</div>
+          </div>
+        </div>
+
+        <p>
+          Continue the story. Keep it honest. Mention what you’d do differently—people trust that.
+        </p>
+
+        <h2>What surprised us</h2>
+        <p>
+          One paragraph about the unexpected thing: crowds, timing, food, scenery, cost—whatever a traveler would want to know.
+        </p>
+      </section>
+
+      <!-- ============================================================
+           RELATED LINKS + SOCIAL / VIDEO (NEW SECTION)
+           Put your Reel/TikTok/YouTube + helpful planning links here.
+           ============================================================ -->
+      <section class="related" aria-label="Related social and links">
+        <h2>Related social & helpful links</h2>
+
+        <!-- EDIT HERE: One sentence explanation -->
+        <p>
+          If you found us on social, here’s the Reel/TikTok for this trip plus the links we used while planning.
+        </p>
+
+        <!-- LINK CARDS (add/remove as needed) -->
+        <div class="related-grid">
+          <!-- Instagram Reel -->
+          <div class="link-card">
+            <strong>
+              Instagram Reel
+              <!-- EDIT HERE: Paste the Instagram Reel link -->
+              <a href="PASTE-INSTAGRAM-REEL-LINK-HERE" target="_blank" rel="noopener noreferrer">Open →</a>
+            </strong>
+            <span>Quick highlight reel of this trip.</span>
+          </div>
+
+          <!-- TikTok -->
+          <div class="link-card">
+            <strong>
+              TikTok
+              <!-- EDIT HERE: Paste the TikTok link -->
+              <a href="PASTE-TIKTOK-LINK-HERE" target="_blank" rel="noopener noreferrer">Watch →</a>
+            </strong>
+            <span>The short version + behind-the-scenes moments.</span>
+          </div>
+
+          <!-- Google Maps -->
+          <div class="link-card">
+            <strong>
+              Google Maps
+              <!-- EDIT HERE: Paste Google Maps link -->
+              <a href="PASTE-GOOGLE-MAPS-LINK-HERE" target="_blank" rel="noopener noreferrer">View →</a>
+            </strong>
+            <span>Saved stops, parking, and favorite viewpoints.</span>
+          </div>
+
+          <!-- Lodging / Activity -->
+          <div class="link-card">
+            <strong>
+              Where we stayed / did
+              <!-- EDIT HERE: Paste lodging or activity link -->
+              <a href="PASTE-LODGING-OR-ACTIVITY-LINK-HERE" target="_blank" rel="noopener noreferrer">See →</a>
+            </strong>
+            <span>Optional: hotel/cabin/campground or main activity link.</span>
+          </div>
+        </div>
+
+        <!-- OPTIONAL VIDEO EMBED (best for YouTube) -->
+        <!-- If you don't have a YouTube video, delete this whole block. -->
+        <div class="embed" aria-label="Video embed">
+          <!-- EDIT HERE:
+               Replace with a YouTube EMBED link:
+               https://www.youtube.com/embed/VIDEO_ID
+          -->
+          <iframe
+            src="https://www.youtube.com/embed/VIDEO_ID"
+            title="Trip video"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           PLANNING NOTES (turn inspiration into action)
+           ============================================================ -->
+      <section class="plan" aria-label="Planning notes">
+        <h2>If you want to plan a trip like this</h2>
+
+        <p style="margin:0; color: var(--muted);">
+          This section turns inspiration into action. Keep it practical and repeatable.
+        </p>
+
+        <!-- Planning “cards” -->
+        <div class="plan-grid">
+          <!-- EDIT HERE: Planning items -->
+          <div class="plan-item">
+            <strong>Best time to go</strong>
+            <span>Example: late spring for weather, weekdays for fewer crowds.</span>
+          </div>
+
+          <div class="plan-item">
+            <strong>Trip length</strong>
+            <span>Example: 1 night / 2 days is perfect for this route.</span>
+          </div>
+
+          <div class="plan-item">
+            <strong>Budget range</strong>
+            <span>Example: $250–$450 depending on food + lodging.</span>
+          </div>
+
+          <div class="plan-item">
+            <strong>What worked with kids</strong>
+            <span>Example: snack stops + one “big activity” + early dinner.</span>
+          </div>
+
+          <div class="plan-item">
+            <strong>What we’d do differently</strong>
+            <span>Example: arrive earlier + book one thing in advance.</span>
+          </div>
+
+          <div class="plan-item">
+            <strong>Quick packing list</strong>
+            <span>Example: layers, wipes, water bottle, backup shoes, charging pack.</span>
+          </div>
+        </div>
+
+        <p style="margin:12px 0 0; color: var(--muted);">
+          Optional: add a short day-by-day outline or “Top 3 stops” to make this even easier.
+        </p>
+      </section>
+
+      <!-- ============================================================
+           SHARE / CTA (buttons at bottom)
+           ============================================================ -->
+      <div class="share" aria-label="Share section">
+        <div>
+          <strong style="color:var(--text);">Want more trips like this?</strong><br />
+          <span>Follow us on social, then come back here for the full story + planning notes.</span>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn" href="../index.html">Back to home</a>
+
+          <!-- EDIT HERE: Replace # with your social links -->
+          <a class="btn" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a class="btn" href="#" target="_blank" rel="noopener noreferrer">TikTok</a>
+          <a class="btn" href="#" target="_blank" rel="noopener noreferrer">Pinterest</a>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           FOOTER NOTES (for you)
+           ============================================================ -->
+      <footer>
+        <p style="margin:0;">
+          Posting workflow: copy this file → rename it → update title/meta/images/links → link it from <code>index.html</code>.
+        </p>
+      </footer>
+    </article>
+  </main>
+</body>
+</html>
