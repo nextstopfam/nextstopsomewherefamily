@@ -1,387 +1,410 @@
 <!doctype html>
+<!--
+  DOCTYPE tells the browser: "This is modern HTML5"
+-->
 <html lang="en">
+<!--
+  lang="en" helps screen readers + SEO understand the language of the page
+-->
 <head>
+  <!--
+    ===== BASIC PAGE SETTINGS =====
+  -->
+
+  <!-- Character set so text displays correctly -->
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Next Stop Somewhere Family</title>
-  <meta name="description" content="A family travel blog sharing trips, stories, and practical tips—next stop: somewhere." />
 
-  <style>
-    :root{
-      --bg: #0b0f16;
-      --card: #111827;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --accent: #60a5fa;
-      --border: rgba(255,255,255,.08);
-      --shadow: 0 10px 25px rgba(0,0,0,.35);
-      --radius: 18px;
-      --max: 1050px;
-    }
-    *{ box-sizing: border-box; }
-    body{
-      margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      background: radial-gradient(1200px 600px at 20% -10%, rgba(96,165,250,.25), transparent 50%),
-                  radial-gradient(900px 500px at 90% 10%, rgba(16,185,129,.18), transparent 55%),
-                  var(--bg);
-      color: var(--text);
-      line-height: 1.55;
-    }
-    a{ color: inherit; text-decoration: none; }
-    a:hover{ color: var(--accent); }
+  <!-- Makes the layout work well on phones (mobile-first!) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    .wrap{ max-width: var(--max); margin: 0 auto; padding: 24px; }
-    .topbar{
-      position: sticky; top: 0; z-index: 10;
-      backdrop-filter: blur(12px);
-      background: rgba(11,15,22,.65);
-      border-bottom: 1px solid var(--border);
-    }
-    .topbar-inner{
-      display: flex; gap: 16px; align-items: center; justify-content: space-between;
-      max-width: var(--max); margin: 0 auto; padding: 14px 24px;
-    }
-    .brand{
-      display: flex; gap: 10px; align-items: center;
-      font-weight: 700; letter-spacing: .2px;
-    }
-    .logo{
-      width: 36px; height: 36px; border-radius: 12px;
-      background: linear-gradient(135deg, rgba(96,165,250,.9), rgba(16,185,129,.85));
-      box-shadow: var(--shadow);
-    }
-    nav{ display: flex; gap: 14px; flex-wrap: wrap; }
-    nav a{
-      padding: 8px 10px; border-radius: 10px;
-      color: var(--muted);
-    }
-    nav a:hover{
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-    }
+  <!--
+    The title shows in:
+    - browser tab
+    - Google results
+    - social shares (sometimes)
+  -->
+  <title>POST TITLE | Next Stop Somewhere Family</title>
 
-    .hero{
-      padding: 42px 0 22px;
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 22px;
-      align-items: center;
-    }
-    @media (max-width: 880px){
-      .hero{ grid-template-columns: 1fr; padding-top: 28px; }
-    }
-    .hero h1{
-      font-size: clamp(32px, 4vw, 46px);
-      margin: 0 0 10px;
-      line-height: 1.1;
-    }
-    .hero p{
-      margin: 0 0 18px;
-      color: var(--muted);
-      font-size: 1.05rem;
-    }
-    .cta-row{ display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn{
-      display: inline-flex; align-items: center; justify-content: center;
-      padding: 11px 14px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      box-shadow: 0 8px 18px rgba(0,0,0,.22);
-      transition: transform .05s ease;
-    }
-    .btn:hover{ border-color: rgba(96,165,250,.55); }
-    .btn:active{ transform: translateY(1px); }
-    .btn.primary{
-      background: linear-gradient(135deg, rgba(96,165,250,.9), rgba(96,165,250,.55));
-      border-color: rgba(96,165,250,.35);
-      color: #06101f;
-      font-weight: 650;
-    }
+  <!--
+    Page description:
+    - shows in Google results
+    - used by social sites if they need fallback text
+    Keep it to ~1-2 sentences.
+  -->
+  <meta name="description" content="One-sentence summary for Google + social previews." />
 
-    .panel{
-      background: rgba(17,24,39,.72);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 16px;
-    }
-    .mini{
-      display: grid;
-      gap: 12px;
-    }
-    .stat{
-      display: flex; align-items: baseline; justify-content: space-between;
-      padding: 12px 12px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.06);
-    }
-    .stat .k{ color: var(--muted); font-size: .95rem; }
-    .stat .v{ font-weight: 700; }
+  <!--
+    ===== CANONICAL URL =====
+    This prevents “duplicate page” SEO issues if the same page is reachable multiple ways.
+    On GitHub Pages, you'll use your repo URL.
+    Later, if you buy a custom domain, you’ll update it here.
+  -->
+  <link rel="canonical" href="https://YOUR-USERNAME.github.io/YOUR-REPO/posts/2026-03-example-trip.html" />
 
-    .section-title{
-      margin: 26px 0 10px;
-      font-size: 1.2rem;
-      letter-spacing: .2px;
-    }
-    .grid{
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-    @media (max-width: 980px){ .grid{ grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 640px){ .grid{ grid-template-columns: 1fr; } }
+  <!--
+    ===== SOCIAL PREVIEW TAGS (VERY IMPORTANT) =====
 
-    .card{
-      background: rgba(17,24,39,.70);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
-      min-height: 220px;
-    }
-    .thumb{
-      height: 128px;
-      background: linear-gradient(135deg, rgba(96,165,250,.25), rgba(16,185,129,.20));
-      border-bottom: 1px solid var(--border);
-      display: grid;
-      place-items: center;
-      color: rgba(229,231,235,.85);
-      font-weight: 650;
-      letter-spacing: .2px;
-    }
-    .card-body{ padding: 14px; display: grid; gap: 8px; }
-    .meta{ color: var(--muted); font-size: .92rem; }
-    .card h3{ margin: 0; font-size: 1.08rem; line-height: 1.25; }
-    .card p{ margin: 0; color: var(--muted); }
-    .card .more{
-      margin-top: auto;
-      padding: 12px 14px;
-      border-top: 1px solid var(--border);
-      color: var(--accent);
-      font-weight: 650;
-    }
+    These tags control how your page looks when shared on:
+    - Facebook
+    - iMessage
+    - Slack
+    - some parts of Instagram previews (when a link is pasted)
+    - many other platforms
 
-    .content{
-      margin-top: 18px;
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 14px;
-      align-items: start;
-    }
-    @media (max-width: 900px){ .content{ grid-template-columns: 1fr; } }
+    TIP:
+    og:image should be a FULL URL to your hero image.
+  -->
+  <meta property="og:title" content="POST TITLE" />
+  <meta property="og:description" content="One-sentence summary for social previews." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://YOUR-USERNAME.github.io/YOUR-REPO/posts/2026-03-example-trip.html" />
+  <meta property="og:image" content="https://YOUR-USERNAME.github.io/YOUR-REPO/assets/img/posts/example-hero.jpg" />
 
-    .post{
-      padding: 18px;
-    }
-    .post h2{ margin: 0 0 8px; }
-    .post .byline{ margin: 0 0 12px; color: var(--muted); }
-    .post img{
-      width: 100%;
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      margin: 10px 0 12px;
-      display: block;
-    }
-    .pill-row{ display:flex; flex-wrap:wrap; gap:8px; margin-top: 10px; }
-    .pill{
-      font-size: .9rem;
-      color: var(--muted);
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.04);
-      padding: 6px 10px;
-      border-radius: 999px;
-    }
+  <!--
+    Twitter/X preview card.
+    Even if you don’t use X much, some platforms still reference this.
+  -->
+  <meta name="twitter:card" content="summary_large_image" />
 
-    footer{
-      margin-top: 34px;
-      padding: 24px 0 30px;
-      color: var(--muted);
-      border-top: 1px solid var(--border);
-    }
-    .foot{
-      display:flex; align-items: center; justify-content: space-between; gap: 12px;
-      flex-wrap: wrap;
-    }
-    .small{ font-size: .92rem; }
-    .note{
-      font-size: .92rem;
-      color: var(--muted);
-      border-left: 3px solid rgba(96,165,250,.5);
-      padding-left: 10px;
-    }
-  </style>
+  <!--
+    Robots tag tells search engines they *can* index it.
+    If you ever want a page hidden from search, you’d change this.
+  -->
+  <meta name="robots" content="index, follow" />
+
+  <!--
+    ===== STYLESHEET LINK =====
+    This connects your page to your CSS file (design).
+    Because this file is inside /posts/, we use ../ to go up one folder.
+  -->
+  <link rel="stylesheet" href="../assets/css/style.css" />
 </head>
 
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          <div>Next Stop Somewhere Family</div>
-          <div style="color: var(--muted); font-weight: 500; font-size: .92rem;">Travel stories • tips • memory-making miles</div>
-        </div>
-      </div>
-      <nav aria-label="Primary">
-        <a href="#latest">Latest</a>
-        <a href="#featured">Featured</a>
-        <a href="#about">About</a>
-        <a href="#tips">Travel Tips</a>
-      </nav>
-    </div>
+  <!--
+    ===== HEADER / TOP NAV BAR =====
+    This is the site name + navigation.
+    It's the same across all pages so users can get around easily.
+  -->
+  <header class="site-header">
+    <!--
+      Brand = site name/logo.
+      Clicking it takes you back to Home.
+    -->
+    <a class="brand" href="../index.html">Next Stop Somewhere Family</a>
+
+    <!--
+      Navigation links
+      You can add more links later (Start Here, Destinations, etc.)
+    -->
+    <nav class="nav">
+      <a href="../index.html">Home</a>
+      <a href="../about.html">About</a>
+
+      <!--
+        This link goes to the "latest posts" section on the homepage.
+        That section needs an element with id="latest" on index.html
+      -->
+      <a href="../index.html#latest">Blog</a>
+    </nav>
   </header>
 
-  <main class="wrap">
-    <section class="hero" aria-label="Intro">
-      <div>
-        <h1>Next stop: <span style="color: var(--accent);">somewhere</span>.</h1>
-        <p>
-          Welcome to our family travel journal—stories from the road, lessons we learned the hard way,
-          and trip ideas you can actually use.
-        </p>
-        <div class="cta-row">
-          <a class="btn primary" href="#latest">Read the latest posts</a>
-          <a class="btn" href="#about">Meet the family</a>
-          <a class="btn" href="#tips">Grab our travel tips</a>
-        </div>
-        <p class="note" style="margin-top:14px;">
-          Family privacy note: we share trips after we’re home and avoid posting exact locations in real time.
-        </p>
-      </div>
+  <!--
+    ===== MAIN CONTENT =====
+    Everything inside <main> is the central content of the page.
+  -->
+  <main class="post">
 
-      <aside class="panel mini" aria-label="Quick stats">
-        <div class="stat">
-          <div class="k">Style</div>
-          <div class="v">Family-friendly</div>
-        </div>
-        <div class="stat">
-          <div class="k">Focus</div>
-          <div class="v">Road trips + weekends</div>
-        </div>
-        <div class="stat">
-          <div class="k">Home base</div>
-          <div class="v">Idaho-ish 🏔️</div>
-        </div>
-        <div class="stat">
-          <div class="k">Posting</div>
-          <div class="v">Whenever we can</div>
-        </div>
-      </aside>
-    </section>
+    <!--
+      ===== HERO SECTION =====
+      This is the "magazine style" big emotional image + title overlay.
 
-    <h2 id="latest" class="section-title">Latest Posts</h2>
-    <section class="grid" aria-label="Latest posts list">
-      <!-- Card 1 -->
-      <article class="card">
-        <div class="thumb">Add a photo later</div>
-        <div class="card-body">
-          <div class="meta">March 1, 2026 • Weekend Trip</div>
-          <h3>Our “Just Go” Weekend That Turned Into a Core Memory</h3>
-          <p>What we packed, what we forgot, and what we’ll never skip again.</p>
-        </div>
-        <a class="more" href="#featured">Read preview ↓</a>
-      </article>
+      CHANGE THESE MOST OFTEN:
+      - hero image src
+      - alt text
+      - category / region line
+      - title
+      - hook (dek)
+    -->
+    <section class="post-hero">
 
-      <!-- Card 2 -->
-      <article class="card">
-        <div class="thumb">Destination highlight</div>
-        <div class="card-body">
-          <div class="meta">February 2026 • Road Trip</div>
-          <h3>Family Road Trip Checklist (That Actually Works)</h3>
-          <p>A practical list you can copy—snacks included.</p>
-        </div>
-        <a class="more" href="#tips">See tips ↓</a>
-      </article>
+      <!--
+        HERO IMAGE:
+        - src = where your image is stored
+        - alt = description for accessibility + SEO
+        - loading="eager" loads quickly because it’s the main image
+      -->
+      <img
+        src="../assets/img/posts/example-hero.jpg"
+        alt="Describe the hero photo (example: Kids standing near a waterfall at sunset)"
+        loading="eager"
+      />
 
-      <!-- Card 3 -->
-      <article class="card">
-        <div class="thumb">Budget + planning</div>
-        <div class="card-body">
-          <div class="meta">January 2026 • Planning</div>
-          <h3>How We Plan Trips When Life Is Busy</h3>
-          <p>Our simple system for choosing destinations and keeping it affordable.</p>
-        </div>
-        <a class="more" href="#about">About us ↓</a>
-      </article>
-    </section>
+      <!--
+        This overlay is the text on top of the hero image.
+        The CSS makes it fade from dark at the bottom to transparent.
+      -->
+      <div class="post-hero-overlay">
 
-    <section class="content" aria-label="Featured content">
-      <article id="featured" class="panel post">
-        <h2>Featured Preview: Our “Just Go” Weekend</h2>
-        <p class="byline">Written by Next Stop Somewhere Family • Posted March 1, 2026</p>
+        <!-- Eyebrow = small uppercase category line -->
+        <p class="eyebrow">WEEKEND GETAWAY • IDAHO</p>
 
-        <!-- Optional hero image:
-             1) put an image in /images/hero.jpg
-             2) uncomment the next line and update the filename
+        <!-- Main title -->
+        <h1>POST TITLE</h1>
+
+        <!--
+          "Dek" = a short hook sentence (magazine term)
+          Use 1-2 lines max.
         -->
-        <!-- <img src="images/hero.jpg" alt="Family travel moment" /> -->
-
-        <p>
-          Sometimes the best trips aren’t the ones you plan for months—they’re the ones you squeeze in
-          between work, school, and whatever else life throws at you. This weekend started with “Let’s just drive”
-          and ended with a memory we’ll talk about for years.
+        <p class="dek">
+          A short emotional hook: what this trip felt like, and why it mattered.
         </p>
-        <p>
-          In the full post, we’ll share our route, quick budget notes, what worked with the kids, and the one thing
-          we’ll never forget to pack again.
-        </p>
+      </div>
+    </section>
 
-        <div class="pill-row" aria-label="Tags">
-          <span class="pill">weekend trips</span>
-          <span class="pill">family travel</span>
-          <span class="pill">road trip</span>
-          <span class="pill">simple planning</span>
-        </div>
+    <!--
+      ===== META + TRIP CARD =====
+      This section is 2 blocks:
+      1) meta info (author, date, read time)
+      2) Trip at a glance (super scannable planning info)
+    -->
+    <section class="post-meta">
 
-        <p style="margin-top:14px; color: var(--muted);">
-          Next step: create a <code>posts/</code> folder and move full blog posts into their own pages.
-        </p>
-      </article>
+      <!-- Left side meta block -->
+      <div class="meta-left">
+        <p class="meta-line"><span>By</span> Next Stop Somewhere Family</p>
+        <p class="meta-line"><span>Date</span> March 1, 2026</p>
+        <p class="meta-line"><span>Read time</span> ~6 min</p>
+      </div>
 
-      <aside class="panel" id="tips" aria-label="Travel tips">
-        <h2 style="margin-top:0;">Quick Travel Tips</h2>
-        <ul style="margin: 10px 0 0; padding-left: 18px; color: var(--muted);">
-          <li><strong style="color:var(--text);">Pack in categories:</strong> snacks, comfort, “oops kit” (wipes, bags, meds).</li>
-          <li><strong style="color:var(--text);">Save locations offline:</strong> map pins + addresses before you leave.</li>
-          <li><strong style="color:var(--text);">Two-outfit rule:</strong> one comfy travel outfit + one backup.</li>
-          <li><strong style="color:var(--text);">Kid win:</strong> small surprise snack for the halfway point.</li>
-          <li><strong style="color:var(--text);">Photo tip:</strong> remove GPS metadata before uploading.</li>
+      <!--
+        Trip Card = quick planning facts.
+        Great for parents who don’t want to read the whole story first.
+      -->
+      <aside class="trip-card" aria-label="Trip at a glance">
+        <h2>Trip at a glance</h2>
+        <ul>
+          <li><strong>Best for:</strong> Ages 3–12</li>
+          <li><strong>Trip length:</strong> 2–3 days</li>
+          <li><strong>Budget:</strong> $$</li>
+          <li><strong>Stroller-friendly:</strong> Yes</li>
+          <li><strong>Accessibility:</strong> Mostly accessible paths</li>
         </ul>
-        <p class="note" style="margin-top:14px;">
-          Want a “packing list” page next? Add a new file called <code>packing.html</code> and link it in the nav.
-        </p>
       </aside>
     </section>
 
-    <section id="about" class="panel" style="margin-top:14px;" aria-label="About">
-      <h2 style="margin-top:0;">About Next Stop Somewhere Family</h2>
-      <p style="color: var(--muted); margin: 8px 0 0;">
-        We’re a family that travels whenever we can—sometimes big trips, sometimes quick weekends.
-        This site is our journal: what we did, what we learned, and what we’d recommend if you’re heading
-        the same direction.
-      </p>
-    </section>
+    <!--
+      ===== POST BODY =====
+      This is the "journal + storytelling" area.
+      We organize it into a consistent flow:
 
-    <footer>
-      <div class="foot">
-        <div class="small">© <span id="year"></span> Next Stop Somewhere Family</div>
-        <div class="small">
-          Built for GitHub Pages •
-          <a href="#latest">Back to top</a>
+      1) Inspiration / why we went
+      2) Story (what happened)
+      3) Planning notes (copyable tips)
+      4) Links/resources
+    -->
+    <article class="post-body">
+
+      <!--
+        SECTION 1: Inspiration
+        This is where you connect emotionally + give context.
+      -->
+      <section class="flow-block" id="inspiration">
+        <h2>Why we chose this trip</h2>
+
+        <!--
+          Add 2–4 short paragraphs.
+          Keep sentences simple and warm.
+        -->
+        <p>
+          Example: We needed a quick reset—something close enough for a weekend,
+          but special enough to feel like an adventure.
+        </p>
+      </section>
+
+      <!--
+        SECTION 2: Story
+        This is where your “journal” voice shines.
+      -->
+      <section class="flow-block" id="story">
+        <h2>The story</h2>
+
+        <p>
+          Example: We started early, packed the snacks, and promised ourselves we’d
+          keep the schedule loose.
+        </p>
+
+        <!--
+          OPTIONAL PHOTO INSIDE THE STORY:
+          Use this for 1–3 additional images.
+        -->
+        <figure class="inline-figure">
+          <img
+            src="../assets/img/posts/example-inline-1.jpg"
+            alt="Describe this image (example: kids eating picnic lunch on a blanket)"
+            loading="lazy"
+          />
+          <!-- Caption helps with that “magazine” vibe -->
+          <figcaption>One line caption: what this moment meant.</figcaption>
+        </figure>
+
+        <p>
+          Example: The best part wasn’t the “big attraction”—it was the small moments
+          in between, like letting the kids lead the way.
+        </p>
+      </section>
+
+      <!--
+        SECTION 3: Planning
+        This is your practical value section.
+        Use bullets + headings so busy parents can skim.
+      -->
+      <section class="flow-block" id="planning">
+        <h2>Planning notes you can copy</h2>
+
+        <h3>Where we stayed</h3>
+        <ul>
+          <li>Family-friendly win (example: quiet rooms, pool, free breakfast)</li>
+          <li>One thing to know (example: parking fills up fast)</li>
+          <li>What we’d book next time</li>
+        </ul>
+
+        <h3>Itinerary (simple + realistic)</h3>
+        <ol>
+          <li><strong>Day 1:</strong> Arrive, easy activity, early dinner</li>
+          <li><strong>Day 2:</strong> Main attraction + rest time</li>
+          <li><strong>Day 3:</strong> Short stop on the way home</li>
+        </ol>
+
+        <h3>What it cost (honest ranges)</h3>
+        <ul>
+          <li><strong>Lodging:</strong> $___–$___</li>
+          <li><strong>Food:</strong> $___–$___</li>
+          <li><strong>Activities:</strong> $___–$___</li>
+          <li><strong>Parking/Transit:</strong> $___–$___</li>
+        </ul>
+
+        <!--
+          Family safety + privacy note:
+          This matches your "family-safe and authentic" goal.
+        -->
+        <h3>Family safety + privacy note</h3>
+        <p class="safety-note">
+          We don’t share real-time locations. This post is published after we’re home,
+          and we avoid identifying details about where our kids are in the moment.
+        </p>
+      </section>
+
+      <!--
+        SECTION 4: Links & Resources
+        Add official websites, reservation links, ticket pages, etc.
+      -->
+      <section class="flow-block" id="links">
+        <h2>Links & resources</h2>
+        <ul>
+          <li><a href="https://example.com">Official attraction site</a></li>
+          <li><a href="https://example.com">Reservations / Tickets</a></li>
+          <li><a href="../index.html">More family trips</a></li>
+        </ul>
+      </section>
+    </article>
+
+    <!--
+      ===== SHARE + FOLLOW SECTION =====
+      This encourages sharing and social follow without needing any fancy tools.
+    -->
+    <section class="post-cta">
+
+      <!-- Share buttons -->
+      <div class="share">
+        <h2>Share this post</h2>
+
+        <!--
+          These are links/buttons that our JavaScript fills in with the correct URL.
+          "rel=noopener" is a small security best practice for external links.
+        -->
+        <div class="share-buttons">
+          <a class="btn" id="share-facebook" href="#" rel="noopener">Facebook</a>
+          <a class="btn" id="share-x" href="#" rel="noopener">X</a>
+          <a class="btn" id="share-pinterest" href="#" rel="noopener">Pinterest</a>
+
+          <!-- Button, not a link, because it runs code to copy -->
+          <button class="btn" id="copy-link" type="button">Copy link</button>
         </div>
       </div>
-    </footer>
+
+      <!-- Follow links -->
+      <div class="follow">
+        <h2>Follow along</h2>
+        <p>More trips, tips, and real family travel moments.</p>
+
+        <!--
+          Put your social profile links here.
+          rel="me" is helpful for identity/profile linking on some platforms.
+        -->
+        <div class="social-links">
+          <a href="https://instagram.com/YOURHANDLE" rel="me noopener">Instagram</a>
+          <a href="https://tiktok.com/@YOURHANDLE" rel="me noopener">TikTok</a>
+          <a href="https://youtube.com/@YOURHANDLE" rel="me noopener">YouTube</a>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      ===== SIMPLE NAV TO MORE POSTS =====
+      You can replace "Next post →" with a real link later.
+    -->
+    <nav class="post-nav" aria-label="More posts">
+      <a href="../index.html#latest">← Back to latest</a>
+      <a href="#">Next post →</a>
+    </nav>
   </main>
 
+  <!--
+    ===== FOOTER =====
+    A simple footer at the bottom of every page
+  -->
+  <footer class="site-footer">
+    <!-- year is filled in by JavaScript below -->
+    <p>© <span id="year"></span> Next Stop Somewhere Family</p>
+  </footer>
+
+  <!--
+    ===== JAVASCRIPT =====
+    Small scripts that:
+    1) auto-fill the current year in the footer
+    2) create share links based on the current page URL
+    3) copy the page link to clipboard
+  -->
   <script>
-    // Set current year automatically
+    // 1) Put the current year in the footer
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // 2) These grab the current page URL + title
+    const url = window.location.href;
+    const title = document.title;
+
+    // 3) Build share links (Facebook, X, Pinterest)
+    document.getElementById("share-facebook").href =
+      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+
+    document.getElementById("share-x").href =
+      `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
+
+    document.getElementById("share-pinterest").href =
+      `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(url)}`;
+
+    // 4) Copy link button
+    document.getElementById("copy-link").addEventListener("click", async () => {
+      try {
+        // Try modern clipboard copy
+        await navigator.clipboard.writeText(url);
+        alert("Link copied!");
+      } catch {
+        // If clipboard fails (some browsers), show a manual copy box
+        prompt("Copy this link:", url);
+      }
+    });
   </script>
 </body>
 </html>
